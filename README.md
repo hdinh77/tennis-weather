@@ -1,7 +1,9 @@
 # tennis-weather
  - Built using ReactJS, Javascript, and Open Weather Map API
 
-## React Introduction
+
+## React Introduction Part I
+ #### DOM and JSX
  - React uses a virtual DOM, which stands for document object model
  - basically, it creates the hierarchy virtually in the memory (RAM) and if it finds a difference between the virtual and the screen (UI) DOM, it updates automatically
  - so page does not need to be refreshed, it updates automatically
@@ -13,6 +15,7 @@
  - index.js file contains the import of React, as well as rendering for the ReactDOM
  - when rendering, the App tag calls the App.js file
  - when you save, the virtual DOM automatically updates the website in localhost
+ #### Functional components
  - functional components are static and don't really change, no states
  - React is just a framework for Javascript, so need to import it in every file
  - once you define a component and it returns something (like an image in a div) need to export it
@@ -22,6 +25,7 @@
  - in the JSX, use ```<BannerImage />```
  - when importing, if it is a JS extension, don't need to specify; but for css and others, you do
  - instead of adding class="" in the tag, for JSX need to use className=""
+ #### Class-based components
  - class based components are dynamic and better for things that have to change
  - props, short for properties, can be passed into the components
 ```<PhotoEntry src="berlin.jpg" location="Location" />	// src and location parameters```
@@ -31,6 +35,7 @@
  - when including and image as the src, need to include the specific path, like ".../images/" + this.props.src
  - otherwise, can just use the this.props expression
  - can create a "wrapper-like" component that just hard codes some instances of another component
+ #### JSON
  - instead of creating hardcoding the parameters, can use JSON to create them dynamically
  - can import the json file by doing ```import NAME_OF_OBJECT from './data/JSON_FILE'```
  - when commenting, JSX has to think it is JavaScript so need to enclose the comment in braces {/**/}
@@ -45,6 +50,7 @@
  - photo is the current element in the entries list, getting the properties from it
  - adding in a 'key' property helps React update the DOM quickly
  - ```debugger;``` triggers a breakpoint in the code and pauses execution in the code
+
 
 ## React Introduction Part II
  #### Props and States
