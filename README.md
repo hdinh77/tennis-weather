@@ -1,6 +1,75 @@
 # tennis-weather
  - Built using ReactJS, Javascript, and Open Weather Map API
 
+## Front End with React and Weather API
+ - using open API from openweathermap.org
+ - to use this API, create a const variable in the App.js file with a key (API key) and base (url of the API location)
+  - if you want to use this to get the weather, use a fetch function
+```
+   fetch(`${api.base}weather?q=${query}&units=metric&APPiD=${api.key}`)
+        .then(res =>res.json())
+        .then(result => setWeather(result));
+```
+ - sends an HTTP request to this base website and uses the API key to get put this endpoint
+ - get json from the response and set the weather to this result
+ ```onChange={e => setQuery(e.target.value)}```
+ - include this onChange function in the search bar in order to call event when it is happening
+ - need to check if the weather.main is defined and has been called
+ - use the ternary operator and need to enclose all in a div tag
+ ```{(typeof weather.main != "undefined") ? () : (' ')}```
+ - can also update the background picture based on the weather with this class in the div returned
+```
+<div className={
+   (typeof weather.main != "undefined")
+       ? ((weather.main.temp > 16)
+         ? 'App warm' 
+         : 'App cold') 
+       : 'App'}>
+```
+ - for time, can add a '0' to the beginning of the getTime() return value, then use .slice(-2) to get last two digits
+## Back End with NodeJS and Express
+ - also going to be using a backend server
+ - npm install the express, mysql, nodemon, and body-parser
+ - we'll be running this server on port 3001 instead of 3000
+ - now instead of using npm start to run the application, we use
+ ```node index.js```
+ - here, we're also using the app.get to reach the home location, REST API
+ - can configure nodemon so that it knows we're running the application and continuously update
+ - in the scripts of the ```package.json``` set it so when you do start, it automatically runs node index.js
+ - also add ```"devStart": "nodemon index.js"``` to run the server through nodemon
+ - now, command: ```npm run devStart```
+ - a lot of people actually use this so they don't need to re run the server when developing
+
+## Database with MySQL
+ - using MySQL to store the previous cities and their temperatures
+ - access the MySQL database in the index.js of the server using this
+```const mysql = require('mysql');```
+ - then we need to create an instance from mysql with the same database name as the one in our local instance
+```
+   const db = mysql.createPool({
+      host: 'localhost',
+      user: 'root',
+      password: 'password',
+      database: 'tennis-weather-database'
+   })
+```
+ - host is the address of the site; right now it's just localhost
+ - root and password are defaults
+ - to call a command and insert into the database, use the query function
+ - query function takes in a string to pass to the table, so need to use the key words
+ - instead of (req, res), can use (err, result) to see if there are errors and return whatever trying to query
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## React Introduction Part I
  #### DOM and JSX
