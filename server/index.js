@@ -1,17 +1,19 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const mysql = require("mysql");
+const mysql = require('mysql');
 
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "Heather6113",
-    database: "tennis_weather"
+const db = mysql.createPool({
+    host: 'localhost',
+    user: 'root',
+    password: 'Heather6113',
+    database: 'tennis_weather',
+    port: '3306'
 });
 
 app.get("/", (req, res) => {
-    const sqlInsert = "INSERT INTO previous_calls (city, temp) VALUES ('los angeles', '100');";
-    db.query(sqlInsert, (err, result) => {
+    const sqlInsert = "INSERT INTO tennis_weather.previous_calls (city, temp) VALUES ('seattle', '20');";
+    db.query(sqlInsert, function (err, result) {
+        if(err) console.log(err);
         res.send(sqlInsert);
     });
 }); 
