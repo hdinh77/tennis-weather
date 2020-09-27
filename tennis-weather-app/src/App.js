@@ -20,6 +20,58 @@ function App() {
     }
   } 
 
+  const dayOrNight = (d) => {
+    if(d.getHours() >= 5 && d.getHours() <= 19) {
+      return 'd';
+    }
+
+    return 'n';
+  }
+
+  const backgroundImage = (d, condition) => {
+    const curTemp = weather.main.temp;
+
+    if(d == 'd') {
+      if(condition == "rain") {
+        return 'App rain-day';
+      }else if(curTemp >= 85) {
+        return 'App hot-day';
+      }else if (curTemp >= 70) {
+        return 'App warm-day'
+      }else {
+        return 'App cold-day';
+      }
+    }else {
+      if(condition == "rain") {
+        return 'App rain-night';
+      }
+        return 'App night';
+    }
+           
+  }
+
+  const getIconCode = (w) => {
+    if(w == "Thunderstorm") {
+      return '11';
+    }else if (w == "Drizzle") {
+      return '09';
+    }else if(w == "Clouds") {
+        return '02';
+    }else if(w == "Rain") {
+      return '10';
+    }else if(w == 'Clear') {
+      return '01';
+    }else if(w == "Snow") {
+      return '13';
+    }else {
+      return '50';
+    }
+  } 
+
+  if(typeof weather.main != "undefined") {
+    console.log(`http://openweathermap.org/img/wn/${getIconCode(weather.weather[0].main)}${dayOrNight(new Date())}@2x.png`);
+  }
+
   const dateBuilder = (d) => {
     let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -41,12 +93,16 @@ function App() {
   }
 
   return (
-    <div className={
-      (typeof weather.main != "undefined")        // if we haven't done a search query yet, it just makes it app
-       ? ((weather.main.temp > 70)
-         ? 'App warm' 
-         : 'App cold') 
-       : 'App'}>
+    <div className=
+       {
+        (typeof weather.main != "undefined")        // if we haven't done a search query yet, it just makes it app
+         ? (backgroundImage(dayOrNight(new Date()), weather.weather[0].main)) 
+         : 'App'
+        }
+       
+       
+       >
+         
         <main>
           <div className="search-box">
             <input type="text" className="search-bar" placeholder="Search..." onChange={e => setQuery(e.target.value)} value={query} onKeyPress={search}/>
@@ -60,9 +116,13 @@ function App() {
                 <div className="time">{timeBuilder(new Date())}</div>
               </div>
 
+            <div>
+              <img className="icon" src={`http://openweathermap.org/img/wn/${getIconCode(weather.weather[0].main)}${dayOrNight(new Date())}@2x.png`}></img>
+            </div>
+
               <div className="weather-box">
                 <div className="temp">{Math.round(weather.main.temp)}°F</div>
-                <div className="tennis-condition">Condition for Tennis: </div>
+                <div className="tennis-condition">The Weather is GREAT for tennis!</div>
               </div>
               <div className="details-box">
                 <div className="weather">Weather: {weather.weather[0].main}</div>
