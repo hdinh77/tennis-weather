@@ -31,8 +31,8 @@ function App() {
   const backgroundImage = (d, condition) => {
     const curTemp = weather.main.temp;
 
-    if(d == 'd') {
-      if(condition == "rain") {
+    if(d === 'd') {
+      if(condition === "rain") {
         return 'App rain-day';
       }else if(curTemp >= 85) {
         return 'App hot-day';
@@ -42,7 +42,7 @@ function App() {
         return 'App cold-day';
       }
     }else {
-      if(condition == "rain") {
+      if(condition === "rain") {
         return 'App rain-night';
       }
         return 'App night';
@@ -51,25 +51,37 @@ function App() {
   }
 
   const getIconCode = (w) => {
-    if(w == "Thunderstorm") {
+    if(w === "Thunderstorm") {
       return '11';
-    }else if (w == "Drizzle") {
+    }else if (w === "Drizzle") {
       return '09';
-    }else if(w == "Clouds") {
+    }else if(w === "Clouds") {
         return '02';
-    }else if(w == "Rain") {
+    }else if(w === "Rain") {
       return '10';
-    }else if(w == 'Clear') {
+    }else if(w === 'Clear') {
       return '01';
-    }else if(w == "Snow") {
+    }else if(w === "Snow") {
       return '13';
     }else {
       return '50';
     }
   } 
 
-  if(typeof weather.main != "undefined") {
-    console.log(`http://openweathermap.org/img/wn/${getIconCode(weather.weather[0].main)}${dayOrNight(new Date())}@2x.png`);
+  const weatherConditionString = () => {
+    if((weather.weather[0].main !== "Rain" || weather.weather[0].main !== "Snow") && weather.wind.speed <= 12 && weather.main.temp < 100) {
+      if(weather.main.temp > 90) {
+        return (<span style={{color: "orange", fontSize: 30}}>FAIR</span>);
+      }else if(weather.main.temp > 80) {
+        return (<span style={{color: "yellow", fontSize: 30}}>GOOD</span>);
+      }else if(weather.main.temp > 70) {
+        return (<span style={{color: "green", fontSize: 30}}>PERFECT</span>);
+      }else if(weather.main.temp > 60) {
+        return (<span style={{color: "orange", fontSize: 30}}>FAIR</span>);
+      }
+    }
+
+    return (<span style={{color: "red", fontSize: 30}}>NOT GREAT</span>);
   }
 
   const dateBuilder = (d) => {
@@ -89,13 +101,13 @@ function App() {
     if(hour == '0') hour = '12';
     let minutes = ('0' + d.getMinutes()).slice(-2);
 
-    return `${hour}:${minutes}`;
+    return `${hour}:${minutes} ${(new Date().getHours() <= 12) ? 'am' : 'pm'}`;
   }
 
   return (
     <div className=
        {
-        (typeof weather.main != "undefined")        // if we haven't done a search query yet, it just makes it app
+        (typeof weather.main !== "undefined")        // if we haven't done a search query yet, it just makes it app
          ? (backgroundImage(dayOrNight(new Date()), weather.weather[0].main)) 
          : 'App'
         }
@@ -108,7 +120,7 @@ function App() {
             <input type="text" className="search-bar" placeholder="Search..." onChange={e => setQuery(e.target.value)} value={query} onKeyPress={search}/>
           </div>
           
-          {(typeof weather.main != "undefined") ? (
+          {(typeof weather.main !== "undefined") ? (
             <div>
               <div className="location-box">
                 <div className="location">{weather.name}, {weather.sys.country}</div>
@@ -122,7 +134,7 @@ function App() {
 
               <div className="weather-box">
                 <div className="temp">{Math.round(weather.main.temp)}°F</div>
-                <div className="tennis-condition">The Weather is GREAT for tennis!</div>
+                <div className="tennis-condition">The Weather is {weatherConditionString()} for tennis!</div>
               </div>
               <div className="details-box">
                 <div className="weather">Weather: {weather.weather[0].main}</div>
@@ -135,8 +147,16 @@ function App() {
           : (
             <div>
               <div className="home">
-                  <div className="welcome">TennisTemp</div>
-                  <div className="date">{dateBuilder(new Date())}</div>
+                  <div className="welcome">Tennis Weather</div>
+                  <div className="block">
+                    <span>{dateBuilder(new Date())}</span>
+                    <br></br>
+                    <span>{timeBuilder(new Date())}</span>
+                  </div>
+              </div>
+
+              <div className="details-box" style={{display: "block", width: 250, right: 0, boxShadow: 0}}>
+                created by Heather Dinh
               </div>
             </div>
           )}
