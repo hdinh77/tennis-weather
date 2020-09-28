@@ -1,8 +1,8 @@
 # Tennis Weather App
  - Built using ReactJS, Javascript, and Open Weather Map API
 
-<img src="https://github.com/hdinh77/tennis-weather/images/homepage.JPG">
-<img src="https://github.com/hdinh77/tennis-weather/images/location.JPG">
+<img src="https://github.com/hdinh77/tennis-weather/blob/master/images/homepage.JPG">
+<img src="https://github.com/hdinh77/tennis-weather/blob/master/images/location.JPG">
 
 ## Front End with React and Weather API
  - using open API from openweathermap.org
