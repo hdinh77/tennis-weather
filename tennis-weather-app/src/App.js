@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import config from './config.js';
+import Axios from "axios";
 
 const api = {
   key: "2e0a2e3d27a24770ecdcb29b43c6b860",
@@ -12,13 +13,30 @@ function App() {
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
 
+  const insertDB = (temperature) => {
+    Axios.post('http://localhost:3001', {
+      city: weather.name, temp: temperature})
+      .then(() => {
+        console.log("successful insert");
+    });
+  }
+
   const search = evt => {
     if(evt.key === "Enter") {
       fetch(`${api.base}weather?q=${query}&units=imperial&APPID=${api.key}`)
         .then(res => res.json())
         .then(result => {setWeather(result); setQuery(''); console.log(result);});
+
+        if(weather.main != "undefined") {
+          //insertDB(Math.round(weather.main.temp));
+        }
     }
+
+    
+    
   } 
+
+  
 
   const dayOrNight = (d) => {
     if(d.getHours() >= 5 && d.getHours() <= 19) {
@@ -110,9 +128,7 @@ function App() {
         (typeof weather.main !== "undefined")        // if we haven't done a search query yet, it just makes it app
          ? (backgroundImage(dayOrNight(new Date()), weather.weather[0].main)) 
          : 'App'
-        }
-       
-       
+        }    
        >
          
         <main>
