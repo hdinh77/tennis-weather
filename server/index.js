@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: 'Heather6113',
+    password: 'Heather',
     database: 'tennis_weather',
     port: '3306'
 });
