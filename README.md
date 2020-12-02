@@ -1,5 +1,6 @@
 # Tennis Weather App
  - Built using ReactJS, Javascript, and Open Weather Map API
+ - See this project hosted on Heroku: https://tennis-weather-app.herokuapp.com/ 
 
 <img src="https://github.com/hdinh77/tennis-weather/blob/master/images/homepage.JPG">
 <img src="https://github.com/hdinh77/tennis-weather/blob/master/images/location.JPG">
