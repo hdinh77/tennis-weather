@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import Axios from "axios";
+// import Axios from "axios";
 
 const api = {
   key: "2e0a2e3d27a24770ecdcb29b43c6b860",
@@ -12,13 +12,13 @@ function App() {
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
 
-  const insertDB = (temperature) => {
+  /*const insertDB = (temperature) => {
     Axios.post('http://localhost:3001', {
       city: weather.name, temp: temperature})
       .then(() => {
         console.log("successful insert");
     });
-  }
+  }*/
 
   const search = evt => {
     if(evt.key === "Enter") {
@@ -26,9 +26,9 @@ function App() {
         .then(res => res.json())
         .then(result => {setWeather(result); setQuery(''); console.log(result);});
 
-        if(weather.main != "undefined") {
+        //if(weather.main != "undefined") {
           //insertDB(Math.round(weather.main.temp));
-        }
+        //}
     }
 
     
