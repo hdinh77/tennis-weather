@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './App.css';
-import config from './config.js';
 import Axios from "axios";
 
 const api = {
