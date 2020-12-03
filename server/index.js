@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
-
+/*
 app.get('/api/get', (req, res) => {
     const sqlSelect = "SELECT * FROM tennis_weather.previous_calls";
     db.query(sqlSelect, (err, result) => {
@@ -42,8 +42,7 @@ app.post('/', (req, res) => {
         }
     });
 });
-
-app.listen(3001,() => {
-    console.log('running on port 3001');
-
+*/
+app.listen(process.env.PORT || 3001,() => {
+    console.log('running on port %d', this.address().port);
 });
