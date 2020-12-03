@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, componentDidMount } from 'react';
 import './App.css';
 // import Axios from "axios";
 
@@ -7,8 +7,8 @@ const api = {
   base: "https://api.openweathermap.org/data/2.5/"
 }
 
-
 function App() {
+
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
 
