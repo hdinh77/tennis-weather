@@ -1,9 +1,34 @@
 # Tennis Weather App
- - Built using ReactJS, Javascript, and Open Weather Map API
- - See this project hosted on Heroku: https://tennis-weather-app.herokuapp.com/ 
+ ### See this project hosted on Heroku! https://tennis-weather-app.herokuapp.com/ 
+ - Built using ReactJS and the Open Weather Map API
 
 <img src="https://github.com/hdinh77/tennis-weather/blob/master/images/homepage.JPG">
 <img src="https://github.com/hdinh77/tennis-weather/blob/master/images/location.JPG">
+
+## Notes about Heroku deployment
+ - log in to Heroku on Command Line
+ ```$ heroku login```
+ - clone the repository
+```$ heroku git:clone -a tennis-weather-app```
+- since the app is in the subdirectory, use this command to push to heroku remote
+```$ git add .
+   $ git commit -m "committing..."
+   $ git subtree push tennis-weather-app heroku master
+```
+- 
+- there was an H10 error:
+```heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/"```
+- to resolve this, need to install serve ```npm i serve``` and modify the ```package.json``` so that on ```npm start```, it runs ```serve -s build``` instead of ```react-scripts start``` due to port issues, and change the scripts:
+```"scripts": {
+    "dev": "react-scripts start",
+    "start": "serve -s build", 
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run build"
+  }
+```
+- also don't delete favicon.ico :(
 
 ## Front End with React and Weather API
  - using open API from openweathermap.org
